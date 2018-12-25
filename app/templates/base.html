@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+    {% if title %}
+			<title> {{ title }} </title>
+    {% else %}
+    	<title> No title </title>
+    {% endif %}
+
+	</head>
+	<style>
+	body{
+	  background-image: url("https://kidsastronomy.com/wp-content/uploads/2017/08/deep-space-star-field-with-black-hole-picture-id918887006.jpg");
+	  background-size: 1376px 750px;
+	  background-repeat: no-repeat;
+	  background-attachment: fixed;
+	  background-position: 0px 0px;
+	  margin-left: 100px;
+	  margin-right: 100px;
+	  min-width: 900px;
+		max-width: 1200px;
+	  font-family: Verdana, Times New Roman, Sans-Serif;
+	}
+	div {
+	  background-color: grey;
+	  border: 8px solid #1C6EA4;
+	}
+	#Blackhole {
+
+		text-align: center;
+
+	}
+	#nav {
+		width: 150px;
+		float: left;
+		padding: 50px;
+	}
+	.Navigation_Bar li {
+		list-style-type: none;
+		padding: 10px;
+		font-size: 20px;
+		letter-spacing: 0px;
+		word-spacing: 0px;
+		color: #000000;
+		font-weight: 700;
+		text-decoration: none;
+		font-style: normal;
+		font-variant: normal;
+		text-transform: none;
+		margin-bottom: 10px;
+	}
+	#content {
+		float: right;
+	}
+	.co {
+  min-height: calc(100vh - 70px);
+}
+.footer {
+  height: 50px;
+	background-color: green;
+}
+	</style>
+	<body>
+		<h1  id="Blackhole"> Blackhole </h1>
+	<div class="co">
+		<div id="nav">
+			<nav class="Navigation_Bar">
+				<ul>
+					<li> <a href={{ url_for('index')}}> Home</a> </li>
+					{% if current_user.is_anonymous %}
+					<li> <a href={{ url_for('login')}}> Sign in</a> </li>
+					{% else %}
+					<li> <a href={{ url_for('user', username=current_user.username)}}> Profile</a> </li>
+					<li> <a href={{ url_for('logout')}}> Sign out</a> </li>
+					{% endif %}
+					<li> <a href={{ url_for('register')}}> Register</a> </li>
+					<li> <a href={{ url_for('feed')}}> Feed </a> </li>
+					<li> <a href={{ url_for('canvas')}}> Canvas </a> </li>
+				</ul>
+			</nav>
+		</div>
+		<div id"errors">
+			{% with messages = get_flashed_messages() %}
+        {% if messages %}
+				<div>
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+				</div>
+        {% endif %}
+        {% endwith %}
+			</div>
+		<div id="content">
+    {% block content %}{% endblock %}
+		</div>
+	</div>
+		<footer class="footer">
+				Welcome to my first web-site! You email me on bodyatyan@gmail.com
+				@2019
+		</footer>
+	</body>
+</html>
